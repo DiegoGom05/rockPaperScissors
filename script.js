@@ -1,9 +1,16 @@
-let userChoice = prompt('choose either rock paper or scissors');
+let userChoice;
 let computerChoice;
-
-while (userChoice !== 'rock' && userChoice !== 'paper' && userChoice !== 'scissors') {
-    userChoice = prompt('You didn\'t choose rock, paper, or scissors. Please choose again:').toLowerCase();
+let userScore = 0;
+let computerScore = 0;
+let loop = true;
+function getPlayerChoice(){
+    let choice  = prompt('choose either rock paper or scissors');
+    while (choice !== 'rock' && choice !== 'paper' && choice !== 'scissors') {
+        choice = prompt('You didn\'t choose rock, paper, or scissors. Please choose again:').toLowerCase();
+    }
+    return choice;
 }
+
 function getComputerChoice(){
     let rand = Math.round(Math.random()*2);
      
@@ -19,7 +26,7 @@ function getComputerChoice(){
             break;
     } 
 }
-function match(playerSelection, computerSelection){
+function match(){
     if(userChoice === computerChoice){
         console.log('its a tie');
     } else if(
@@ -28,10 +35,29 @@ function match(playerSelection, computerSelection){
         (userChoice === 'paper' && computerChoice === 'rock')
     ){
         console.log('you win');
+        userScore += 1;
     } else{
         console.log('you lose');
+        computerScore += 1;
     }
 }
-
-computerChoice = getComputerChoice();
-match(userChoice, computerChoice);
+function game(loop){
+    while(loop == true){
+        userChoice = getPlayerChoice();
+        console.log(userChoice);
+        computerChoice = getComputerChoice();
+        console.log(computerChoice);
+        match();
+        if(computerScore === 5){
+            console.log('you\'ve lost');
+            loop = false;
+        }
+        else if(userScore === 5){
+            console.log('you\'ve won');
+            loop = false;
+        }
+        
+    }
+ 
+}
+game(loop);
